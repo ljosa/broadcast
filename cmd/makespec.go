@@ -20,6 +20,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"net/mail"
 	"os"
 	"path/filepath"
 
@@ -96,7 +97,11 @@ func readRecipients() ([]lib.Recipient, error) {
 	for scanner.Scan() {
 		line := scanner.Text()
 		if line != "" {
-			recipients = append(recipients, lib.Recipient{Addr: line})
+			addr, err := mail.ParseAddress(line)
+			if err != nil {
+				return nil, err
+			}
+			recipients = append(recipients, lib.Recipient{Name: addr.Name, Addr: addr.Address})
 		}
 	}
 
