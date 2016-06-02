@@ -1,4 +1,4 @@
-// Copyright © 2016 NAME HERE <EMAIL ADDRESS>
+// Copyright © 2016 Vebjorn Ljosa <vebjorn@ljosa.com>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,13 +30,13 @@ var smtpPort int
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
 	Use:   "broadcast",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
+	Short: "Send email to many recipients",
+	Long: `Create a spec that contains the body of the email, the list of recipients,
+and the sender. The contents can be HTML or text or both. Test the spec by sending a
+message to yourself. Finally, send to all recipients.
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+Only supports sending via SMTP. It's possible to configure the SMTP server and port, 
+but not authentication.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	//	Run: func(cmd *cobra.Command, args []string) { },
@@ -65,7 +65,7 @@ func init() {
 	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.broadcast.yaml)")
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	RootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	//RootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 // initConfig reads in config file and ENV variables if set.
