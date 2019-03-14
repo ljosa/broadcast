@@ -18,6 +18,7 @@ var htmlFilename string
 var textFilename string
 var recipientsFilename string
 var force bool
+var senderName string
 var senderEmail string
 var subject string
 
@@ -42,6 +43,9 @@ of the contents, as well as other settings such as the sender's name and address
 		var err error
 		spec := lib.Spec{}
 		spec.FromAddr = senderEmail
+		if senderName != "" {
+			spec.FromName = senderName
+		}
 		spec.Subject = subject
 		if htmlFilename != "" {
 			html, err := ioutil.ReadFile(htmlFilename)
@@ -137,6 +141,7 @@ func init() {
 	makespecCmd.PersistentFlags().StringVarP(&htmlFilename, "html", "", "", "File name of HTML contents")
 	makespecCmd.PersistentFlags().StringVarP(&recipientsFilename, "recipients", "", "", "Name of file containing recipients, one per line")
 	makespecCmd.PersistentFlags().StringVarP(&senderEmail, "sender", "", "", "Sender's email address")
+	makespecCmd.PersistentFlags().StringVarP(&senderName, "sender-name", "", "", "Sender's email address")
 	makespecCmd.PersistentFlags().StringVarP(&specFilename, "spec", "", "spec.json", "File name of spec to write (use --force to overwrite)")
 	makespecCmd.PersistentFlags().StringVarP(&subject, "subject", "", "", "Subject of the email")
 	makespecCmd.PersistentFlags().StringVarP(&textFilename, "text", "", "", "File name of HTML contents")
