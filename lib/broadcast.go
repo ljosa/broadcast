@@ -48,6 +48,8 @@ func Send(spec Spec, smtpServer string, smtpPort int) error {
 		} else {
 			m.SetHeader("From", spec.FromAddr)
 		}
+		m.SetHeader("List-Unsubscribe", "<mailto:"+spec.FromAddr+">")
+		m.SetHeader("Precedence", "bulk")
 		if r.Name != "" {
 			to := mail.Address{r.Name, r.Addr}
 			m.SetHeader("To", to.String())
